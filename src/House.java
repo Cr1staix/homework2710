@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * Класс создает объект типа House. Содержит методы для управления его состоянием.
  */
@@ -6,8 +8,6 @@ public class House {
     private int rooms;
     private boolean isGarage;
 
-    public House() {
-    }
 
     private House(Builder builder) {
         this.floors = builder.floors;
@@ -24,6 +24,19 @@ public class House {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        House house = (House) o;
+        return floors == house.floors && rooms == house.rooms;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(floors, rooms, isGarage);
+    }
+
     /**
      * Класс Builder для реализации паттерна проектирования Builder.
      */
@@ -32,9 +45,6 @@ public class House {
         private int rooms;
         private boolean isGarage;
 
-        public Builder() {
-
-        }
 
         public Builder floors(int floors) {
             this.floors = floors;
